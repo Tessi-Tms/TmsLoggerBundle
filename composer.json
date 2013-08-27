@@ -1,0 +1,27 @@
+{
+    "name": "tms/logger-bundle",
+    "type": "symfony-bundle",
+    "description": "This bundle allows to log a lot of things!",
+    "keywords": ["logger", "bundle", "tms"],
+    "homepage": "https://github.com/Tessi-Tms/TmsLoggerBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathalie De Sousa",
+            "email": "nathalie.de.sousa@tessi.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/dependency-injection" : ">=2.1,<2.4",
+        "symfony/config" : ">=2.1,<2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": { "Tms\\Bundle\\LoggerBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "Tms/Bundle/LoggerBundle"
+}
