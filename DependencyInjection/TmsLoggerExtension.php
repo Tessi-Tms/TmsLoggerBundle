@@ -25,12 +25,4 @@ class TmsLoggerExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getAlias()
-    {
-        return 'tms_logger';
-    }
 }

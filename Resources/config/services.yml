@@ -1,4 +1,7 @@
 parameters:
-
+    tms_logger.logger_manager.class: Tms\Bundle\LoggerBundle\Logger\LoggerManager
 
 services:
+    tms_logger.logger_manager:
+        class: %tms_logger.logger_manager.class%
+        arguments: [@doctrine.orm.default_entity_manager]
