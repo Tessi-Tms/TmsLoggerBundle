@@ -14,8 +14,8 @@ use Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
  * @ORM\Table(name="log", indexes={
  *     @ORM\Index(name="log_hash", columns={"hash"}),
  *     @ORM\Index(name="log_object", columns={"object_class_name", "object_id"}),
- *     @ORM\Index(name="log_action", columns={"action"})})
- * }
+ *     @ORM\Index(name="log_action", columns={"action"})
+ * })
  */
 class Log
 {
