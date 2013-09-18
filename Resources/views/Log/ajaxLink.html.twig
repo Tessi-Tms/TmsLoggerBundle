@@ -1,0 +1,47 @@
+<a href="{{ path('tms_logger_api_logs_by_hash_get', { 'hash': tms_logger_hash(entity) }) }}" class="btn tms_logger_ajax_history_link">
+   {{ link|trans }}
+</a>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.tms_logger_ajax_history_link').on('click', function(event) {
+        event.preventDefault();
+        var url = $(this).attr('href');
+
+        $.getJSON(url, function(data){
+            console.log("done");
+        })
+        .done(function(data) {
+            $out = $('\
+                <div id="tms_logger_history_modal" vclass="modal hide fade">\
+                    <div class="modal-header">\
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+                        <h3>History</h3>\
+                    </div>\
+                    <div class="modal-body">\
+                        <table class="logs">\
+                            <thead>\
+                                <tr>\
+                                    <th>id</th>\
+                                    <th>created at</th>\
+                                    <th>hash</th>\
+                                    <th>action</th>\
+                                </tr>\
+                            </thead>\
+                            <tbody></tbody>\
+                        </table>\
+                    </div>\
+                </div>\
+            ');
+            $.each(data, function(k, v) {
+                $out.find('tbody').append("<tr><td>"+v.id+"</td><td>"+v.createdAt+"</td><td>"+v.hash+"</td><td>"+v.action+"</td></tr>");
+            });
+            $('body').append($out);
+            $('tms_logger_history_modal').modal('show');
+        })
+        .fail(function(jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+        });
+    });
+});
+</script>

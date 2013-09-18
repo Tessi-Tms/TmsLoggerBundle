@@ -72,15 +72,15 @@ class Log
 
     public function __construct(LoggableInterface $object, $action, $information = null)
     {
-    	$reflection = new \ReflectionClass($object);
-    	$this
-    		->setCreatedAt(new \DateTime())
-    		->setHash(self::generateHash($object))
-    		->setObjectClassName($reflection->getName())
-    		->setObjectId($object->getId())
-    		->setAction($action)
-    		->setInformation($information)
-    	;
+        $reflection = new \ReflectionClass($object);
+        $this
+            ->setCreatedAt(new \DateTime())
+            ->setHash(self::generateHash($object))
+            ->setObjectClassName($reflection->getName())
+            ->setObjectId($object->getId())
+            ->setAction($action)
+            ->setInformation($information)
+        ;
     }
     
     /**
@@ -230,7 +230,7 @@ class Log
     {
         return $this->information;
     }
-    
+
     /**
      * Generate hash
      * 
@@ -239,12 +239,12 @@ class Log
      */
     public static function generateHash(LoggableInterface $object)
     {
-    	$reflection = new \ReflectionClass($object);
-    	$hash = md5(sprintf("%s-%s",
-    			$reflection->getName(),
-    			$object->getId()
-    	));
-    	
-    	return $hash;
+        $reflection = new \ReflectionClass($object);
+        $hash = md5(sprintf("%s-%s",
+                $reflection->getName(),
+                $object->getId()
+        ));
+
+        return $hash;
     }
 }
