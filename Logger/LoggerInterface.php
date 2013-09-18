@@ -15,4 +15,10 @@ interface LoggerInterface
 	 * @param string $information
 	 */
 	public function log(LoggableInterface $object, $action, $information = null);
+	
+	/**
+	 * Return Logs
+	 * @param unknown_type $search
+	 */
+	public function getLogs($search = null);
 }
