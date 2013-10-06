@@ -1,6 +1,6 @@
 <?php
 
-namespace Tms\Bundle\LoggerBundle\Controller\Api;
+namespace Tms\Bundle\LoggerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class LogController extends Controller
+class ApiLogController extends Controller
 {
     /**
      * @Route("/logs.{_format}", name="tms_logger_api_logs_get", defaults={"_format"="json"})
