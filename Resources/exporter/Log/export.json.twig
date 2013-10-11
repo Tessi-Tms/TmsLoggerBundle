@@ -1,6 +1,7 @@
 {
   "id": "{{ entity.id }}",
-  "createdAt": "{{ entity.createdAt|date('Y-m-d') }}",
+  "createdAt": "{{ entity.createdAt|date('c') }}",
   "hash": "{{ entity.hash }}",
-  "action": "{{ entity.action }}"
+  "action": "{{ entity.action }}",
+  "information": "{{ entity.information }}"
 }

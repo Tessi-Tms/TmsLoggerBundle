@@ -18,16 +18,15 @@ $(document).ready(function() {
                         <div class="modal-content">\
                             <div class="modal-header">\
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
-                                <h3>History</h3>\
+                                <h3>{% trans %}History{% endtrans %}</h3>\
                             </div>\
                             <div class="modal-body">\
-                                <table class="logs">\
+                                <table class="table table-condensed table-bordered">\
                                     <thead>\
                                         <tr>\
-                                            <th>id</th>\
-                                            <th>created at</th>\
-                                            <th>hash</th>\
-                                            <th>action</th>\
+                                            <th>{% trans %}Created at{% endtrans %}</th>\
+                                            <th>{% trans %}Action{% endtrans %}</th>\
+                                            <th>{% trans %}Information{% endtrans %}</th>\
                                         </tr>\
                                     </thead>\
                                     <tbody></tbody>\
@@ -38,7 +37,7 @@ $(document).ready(function() {
                 </div>\
             ');
             $.each(data, function(k, v) {
-                $out.find('tbody').append("<tr><td>"+v.id+"</td><td>"+v.createdAt+"</td><td>"+v.hash+"</td><td>"+v.action+"</td></tr>");
+                $out.find('tbody').append("<tr><td>"+v.createdAt+"</td><td>"+v.action+"</td><td>"+v.information+"</td></tr>");
             });
             $('body').append($out);
             $('#tms_logger_history_modal').modal('show');
