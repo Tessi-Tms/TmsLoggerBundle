@@ -10,7 +10,7 @@ use Tms\Bundle\LoggerBundle\Entity\Log;
 class LoggerManager implements LoggerInterface
 {
     protected $entityManager;
-    
+
     /**
      * Constructor
      * 
@@ -29,21 +29,19 @@ class LoggerManager implements LoggerInterface
         return $this->entityManager;
     }
 
+    /**
+     * @return \Doctrine\ORM\EntityRepository
+     */
     public function getRepository()
     {
         return $this->getEntityManager()->getRepository('TmsLoggerBundle:Log');
     }
 
     /**
-     * @see Tms\Bundle\LoggerBundle\Logger.LoggerInterface::log()
+     *
+     * @param LoggableInterface $loggable
+     * @return string
      */
-    public function log(LoggableInterface $object, $action, $information = null)
-    {
-        $log = new Log($object, $action, $information);
-        $this->getEntityManager()->persist($log);
-        $this->getEntityManager()->flush();
-    }
-
     public function getObjectClassName(LoggableInterface $loggable)
     {
         $reflection = new \ReflectionClass($loggable);
@@ -52,7 +50,17 @@ class LoggerManager implements LoggerInterface
     }
 
     /**
-     * @see Tms\Bundle\LoggerBundle\Logger.LoggerInterface::getLogs()
+     * {@inheritdoc}
+     */
+    public function log(LoggableInterface $loggable, $action, $information = null)
+    {
+        $log = new Log($loggable, $action, $information);
+        $this->getEntityManager()->persist($log);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getLogs($hashOrLogi = null)
     {
