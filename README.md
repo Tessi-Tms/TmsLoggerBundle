@@ -128,7 +128,7 @@ Log with the event dispatcher:
 
 
 ```php
-use \Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
+use Tms\Bundle\LoggerBundle\Logger\LoggableInterface
 use Tms\Bundle\LoggerBundle\Event\LogEvents;
 use Tms\Bundle\LoggerBundle\Event\LogEvent;
 
