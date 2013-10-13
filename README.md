@@ -46,6 +46,23 @@ public function registerBundles()
 }
 ```
 
+Add routes in your `app/config/routing.yml`:
+
+```yml
+tms_logger_api:
+    resource: "@TmsLoggerBundle/Controller"
+    type:     annotation
+    prefix:   /api
+```
+
+Now import the bundle configuration in your `app/config/config.yml`
+
+```yml
+imports:
+    ...
+    - { resource: @TmsLoggerBundle/Resources/config/config.yml }
+```
+
 Now the Bundle is installed.
 
 
@@ -111,7 +128,7 @@ Log with the event dispatcher:
 
 
 ```php
-use \Tms\Bundle\LoggerBundle\Logger\LoggableInterface
+use \Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
 use Tms\Bundle\LoggerBundle\Event\LogEvents;
 use Tms\Bundle\LoggerBundle\Event\LogEvent;
 
