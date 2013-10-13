@@ -193,3 +193,12 @@ if($entity instanceof LoggableInterface) {
 ```
 
 
+Display an entity log history:
+------------------------------
+
+simply insert the following include in your twig for an enity which implement LoggableInterface:
+
+```twig
+{% include "TmsLoggerBundle:Log:ajaxLink.html.twig" with {'entity': entity, 'link': 'History'} %}
+```
+
