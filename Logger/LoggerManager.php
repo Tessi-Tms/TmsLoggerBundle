@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Nathalie De Sousa <nathalie.de.sousa@tessi.fr>
+ * @author Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ */
+
 namespace Tms\Bundle\LoggerBundle\Logger;
 
 use Tms\Bundle\LoggerBundle\Entity\Log;
@@ -38,6 +43,7 @@ class LoggerManager implements LoggerInterface
     }
 
     /**
+     * Get Object class name
      *
      * @param LoggableInterface $loggable
      * @return string
@@ -47,6 +53,27 @@ class LoggerManager implements LoggerInterface
         $reflection = new \ReflectionClass($loggable);
 
         return $reflection->getClassName();
+    }
+
+    /**
+     * Get entity change set
+     *
+     * @param $entity
+     * @return array
+     */
+    public function getEntityChangeSet($entity)
+    {
+        /*
+        if ($entity instanceof ) {
+            return array();
+        }
+        */
+
+        $uow = $this->getEntityManager()->getUnitOfWork();
+        $classMetadata = $this->getEntityManager()->getClassMetadata(get_class($entity));
+        $uow->computeChangeSet($classMetadata, $entity);
+
+        return  $uow->getEntityChangeSet($entity);
     }
 
     /**

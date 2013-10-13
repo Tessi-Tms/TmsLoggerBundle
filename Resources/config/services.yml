@@ -1,12 +1,17 @@
 parameters:
     tms_logger.logger_manager.class: Tms\Bundle\LoggerBundle\Logger\LoggerManager
+    tms_logger.event.subscriber.logger.class: Tms\Bundle\LoggerBundle\Event\Subscriber\LoggerEventSubscriber
 
 services:
     tms_logger.logger_manager:
         class: %tms_logger.logger_manager.class%
-        arguments: [@doctrine.orm.default_entity_manager]
+        arguments: [@doctrine.orm.entity_manager]
 
     tms_logger.twig.logger_extension:
         class: Tms\Bundle\LoggerBundle\Twig\LoggerExtension
         tags:
             - { name: twig.extension }
+
+    tms_logger.event.subscriber.logger:
+        class: %tms_logger.event.subscriber.logger.class%
+        arguments: [@tms_logger.logger_manager]

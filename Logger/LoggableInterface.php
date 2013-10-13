@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * @author Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ */
+
 namespace Tms\Bundle\LoggerBundle\Logger;
 
-/**
- * 
- */
 interface LoggableInterface
 {
-	public function getId();
+    /**
+     * Get id
+     *
+     * @return int|string Something which identify in an unique way an object
+     */
+    public function getId();
 }

@@ -3,12 +3,16 @@
 namespace Tms\Bundle\LoggerBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Tms\Bundle\LoggerBundle\DependencyInjection\TmsLoggerExtension;
+use Tms\Bundle\LoggerBundle\DependencyInjection\Compiler\LoggerSubscriberCompilerPass;
 
 class TmsLoggerBundle extends Bundle
 {
-    public function __construct()
+    public function build(ContainerBuilder $container)
     {
-        $this->extension = new TmsLoggerExtension();
+        parent::build($container);
+
+        $container->addCompilerPass(new LoggerSubscriberCompilerPass());
     }
 }
