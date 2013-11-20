@@ -36,8 +36,46 @@ $(document).ready(function() {
                     <div>\
                 </div>\
             ');
+
+            var $tbody = $out.find('tbody');
             $.each(data, function(k, v) {
-                $out.find('tbody').append("<tr><td>"+v.createdAt+"</td><td>"+v.action+"</td><td>"+v.information+"</td></tr>");
+                var $row = $('\
+                    <tr>\
+                        <td>'+v.createdAt+'</td>\
+                        <td>'+v.action+'</td>\
+                        <td class="information"></td>\
+                    </tr>\
+                ');
+
+                if (v.information) {
+                    var $information = $('\
+                        <table class="information table table-condensed">\
+                            <thead>\
+                                <tr>\
+                                    <th>{% trans %}Field{% endtrans %}</th>\
+                                    <th>{% trans %}Before{% endtrans %}</th>\
+                                    <th>{% trans %}After{% endtrans %}</th>\
+                                </tr>\
+                            </thead>\
+                            <tbody></tbody>\
+                        </table>\
+                    ');
+                    $.each(jQuery.parseJSON(v.information), function(i, item) {
+                        var before = typeof item[0] == 'string' ? item[0] : item[0].toSource();
+                        var after = typeof item[1] == 'string' ? item[1] : item[1].toSource()
+                        console.log(before, after);
+                        $information.find('tbody').append('\
+                            <tr>\
+                                <td>'+i+'</td>\
+                                <td>'+before+'</td>\
+                                <td>'+after+'</td>\
+                            </tr>\
+                        ');
+                    });
+
+                    $row.find('.information').append($information);
+                }
+                $tbody.append($row);
             });
             $('body').append($out);
             $('#tms_logger_history_modal').modal('show');

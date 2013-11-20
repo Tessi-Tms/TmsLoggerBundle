@@ -63,17 +63,11 @@ class LoggerManager implements LoggerInterface
      */
     public function getEntityChangeSet($entity)
     {
-        /*
-        if ($entity instanceof ) {
-            return array();
-        }
-        */
-
         $uow = $this->getEntityManager()->getUnitOfWork();
         $classMetadata = $this->getEntityManager()->getClassMetadata(get_class($entity));
         $uow->computeChangeSet($classMetadata, $entity);
 
-        return  $uow->getEntityChangeSet($entity);
+        return $uow->getEntityChangeSet($entity);
     }
 
     /**
