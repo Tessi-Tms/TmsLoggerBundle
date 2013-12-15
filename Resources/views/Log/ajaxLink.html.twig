@@ -61,9 +61,18 @@ $(document).ready(function() {
                         </table>\
                     ');
                     $.each(jQuery.parseJSON(v.information), function(i, item) {
-                        var before = typeof item[0] == 'string' ? item[0] : item[0].toSource();
-                        var after = typeof item[1] == 'string' ? item[1] : item[1].toSource()
-                        console.log(before, after);
+                        var before = item[0] == null ? '' :
+                            typeof item[0] == 'string' ?
+                                item[0] :
+                                item[0].toSource()
+                        ;
+
+                        var after = item[1] == null ? '' :
+                            typeof item[1] == 'string' ?
+                                item[1] :
+                                item[1].toSource()
+                        ;
+
                         $information.find('tbody').append('\
                             <tr>\
                                 <td>'+i+'</td>\
