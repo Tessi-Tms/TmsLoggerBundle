@@ -27,6 +27,7 @@ $(document).ready(function() {
                                             <th>{% trans %}Created at{% endtrans %}</th>\
                                             <th>{% trans %}Action{% endtrans %}</th>\
                                             <th>{% trans %}Information{% endtrans %}</th>\
+                                            <th>{% trans %}Show{% endtrans %}</th>\
                                         </tr>\
                                     </thead>\
                                     <tbody></tbody>\
@@ -44,21 +45,40 @@ $(document).ready(function() {
                         <td>'+v.createdAt+'</td>\
                         <td>'+v.action+'</td>\
                         <td class="information"></td>\
+                        <td></td>\
                     </tr>\
                 ');
 
                 if (v.information) {
+                    var length = Object.keys(jQuery.parseJSON(v.information)).length;
+                    var index = 0;
+                    var $summary = $('<div class="summary"></div>');
+                    $.each(jQuery.parseJSON(v.information), function(i, item) {
+                        index++;
+                        var comma = (index == length) ? '' : ',';
+                        $summary.append('<span>'+i+comma+' <span>');
+                    });
+                    $show = $('\
+                        <a href="#">\
+                            <i class="fa fa-plus-square"></i>\
+                        </a>\
+                    ');
+                    $row.find('td:last-child').append($show);
+
                     var $information = $('\
-                        <table class="information table table-condensed">\
-                            <thead>\
-                                <tr>\
-                                    <th>{% trans %}Field{% endtrans %}</th>\
-                                    <th>{% trans %}Before{% endtrans %}</th>\
-                                    <th>{% trans %}After{% endtrans %}</th>\
-                                </tr>\
-                            </thead>\
-                            <tbody></tbody>\
-                        </table>\
+                        <div class="information">\
+                            <h4>'+v.action+' - '+v.createdAt+'</h4>\
+                            <table class="information table table-condensed">\
+                                <thead>\
+                                    <tr>\
+                                        <th>{% trans %}Field{% endtrans %}</th>\
+                                        <th>{% trans %}Before{% endtrans %}</th>\
+                                        <th>{% trans %}After{% endtrans %}</th>\
+                                    </tr>\
+                                </thead>\
+                                <tbody></tbody>\
+                            </table>\
+                        </div>\
                     ');
                     $.each(jQuery.parseJSON(v.information), function(i, item) {
                         var before = item[0] == null ? '' :
@@ -82,12 +102,34 @@ $(document).ready(function() {
                         ');
                     });
 
+                    $information.css('display', 'none');
+                    $row.find('.information').append($summary);
                     $row.find('.information').append($information);
+
+                    $show.on('click', function(e) {
+                        e.preventDefault();
+                        var $backButton = $('<button class="btn btn-default">{% trans %}Back to the list{% endtrans %}</button>');
+                        var $info = $(this).closest('tr').find('td.information div.information').clone();
+                        $info.css('display', 'block');
+                        $info.prepend($backButton);
+                        $('.modal .modal-body > table').css('display', 'none');
+                        $('.modal .modal-body').append($info);
+
+                        $backButton.on('click', function(e) {
+                            $('.modal .modal-body > div.information').remove();
+                            $('.modal .modal-body > table').css('display', 'block');
+                        });
+                    });
                 }
                 $tbody.append($row);
             });
             $('body').append($out);
             $('#tms_logger_history_modal').modal('show');
+
+            $('#tms_logger_history_modal').on('hidden.bs.modal', function (e) {
+                $('.modal .modal-body > div.information').remove();
+                $('.modal .modal-body > table').css('display', 'block');
+            });
         })
         .fail(function(jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
