@@ -120,8 +120,7 @@ $(document).ready(function() {
             $('#tms_logger_history_modal').modal('show');
 
             $('#tms_logger_history_modal').on('hidden.bs.modal', function (e) {
-                $('.modal .modal-body > div.fields').remove();
-                $('.modal .modal-body > table').css('display', 'table');
+                jQuery(this).remove();
             });
         })
         .fail(function(jqxhr, textStatus, error) {
