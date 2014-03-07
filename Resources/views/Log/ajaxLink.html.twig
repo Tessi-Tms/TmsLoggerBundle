@@ -1,4 +1,4 @@
-<a href="{{ path('tms_logger_api_logs_by_hash_get', { 'hash': tms_logger_hash(entity) }) }}" class="btn btn-default tms_logger_ajax_history_link">
+<a href="{{ path('api_log_export_logs_by_hash', { 'hash': tms_logger_hash(entity) }) }}" class="btn btn-default tms_logger_ajax_history_link">
    {{ link|trans }}
 </a>
 
@@ -66,7 +66,7 @@ $(document).ready(function() {
                     $row.find('td:last-child').append($show);
 
                     var $information = $('\
-                        <div style="overflow-wrap: break-word;" class="fields">\
+                        <div style="overflow-wrap: break-word; word-wrap: break-word;" class="fields">\
                             <p>\
                                 <span><i class="fa fa-cog"></i> '+v.action+'</span><br/>\
                                 <span><i class="fa fa-clock-o"></i> '+v.createdAt+'</span>\
@@ -100,7 +100,7 @@ $(document).ready(function() {
 
                     $show.on('click', function(e) {
                         e.preventDefault();
-                        var $backButton = $('<button class="btn btn-default">{% trans %}Back to the list{% endtrans %}</button><br/><br/>');
+                        var $backButton = $('<button style="margin-bottom: 10px;" class="btn btn-default">{% trans %}Back to the list{% endtrans %}</button>');
                         var $info = $(this).closest('tr').find('td.information div.fields').clone();
                         console.log($info);
                         $info.css('display', 'block');
