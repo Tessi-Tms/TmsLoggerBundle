@@ -1,4 +1,0 @@
-idci_exporter:
-    entities:
-        logs:
-            class: "Tms\\Bundle\\LoggerBundle\\Entity\\Log"
