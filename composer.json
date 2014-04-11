@@ -9,12 +9,18 @@
         {
             "name": "Nathalie De Sousa",
             "email": "nathalie.de.sousa@tessi.fr"
+        },
+        {
+            "name": "Gabriel Bondaz",
+            "email": "gabriel.bondaz@idci-consulting.fr"
         }
     ],
     "require": {
         "php": ">=5.3.3",
         "symfony/dependency-injection" : ">=2.1,<2.4",
-        "symfony/config" : ">=2.1,<2.4"
+        "symfony/config" : ">=2.1,<2.4",
+        "jms/serializer-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

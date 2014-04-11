@@ -21,6 +21,8 @@ First add the dependency in your `composer.json` file:
 ],
 "require": {
         ...,
+        "jms/serializer-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "dev-master",
         "tms/logger-bundle": "dev-master"
     },
 ```
@@ -50,17 +52,8 @@ Add routes in your `app/config/routing.yml`:
 
 ```yml
 tms_logger_api:
-    resource: "@TmsLoggerBundle/Controller"
-    type:     annotation
-    prefix:   /api
-```
-
-Now import the bundle configuration in your `app/config/config.yml`
-
-```yml
-imports:
-    ...
-    - { resource: @TmsLoggerBundle/Resources/config/config.yml }
+    type:     rest
+    resource: "@TmsLoggerBundle/Resources/config/routing.yml"
 ```
 
 Now the Bundle is installed.
@@ -79,8 +72,6 @@ use Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
 
 MyClass implements LoggableInterface
 {
-    ...
-
     /**
      * Get id
      *
@@ -88,7 +79,27 @@ MyClass implements LoggableInterface
      */
     public function getId()
     {
-        ...
+        //...
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        //...
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        //...
     }
 }
 

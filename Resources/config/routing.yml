@@ -1,4 +1,4 @@
 log:
-    type:         rest
-    resource:     Tms\Bundle\LoggerBundle\Controller\Rest\ApiLogController
-    name_prefix:  api_log_
+    type:        rest
+    resource:    Tms\Bundle\LoggerBundle\Controller\Rest\ApiLogController
+    name_prefix: api_log_
