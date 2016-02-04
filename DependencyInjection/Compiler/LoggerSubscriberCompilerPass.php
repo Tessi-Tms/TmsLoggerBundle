@@ -13,7 +13,7 @@ class LoggerSubscriberCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $dispatcherDefinition = $container->getDefinition('event_dispatcher');
+        $dispatcherDefinition = $container->findDefinition('event_dispatcher');
 
         $dispatcherDefinition->addMethodCall(
             'addSubscriber',
