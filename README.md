@@ -20,9 +20,7 @@ First add the dependency in your `composer.json` file:
     }
 ],
 "require": {
-        ...,
-        "jms/serializer-bundle": "dev-master",
-        "friendsofsymfony/rest-bundle": "dev-master",
+        ...,        
         "tms/logger-bundle": "dev-master"
     },
 ```
@@ -44,6 +42,8 @@ public function registerBundles()
     $bundles = array(
         // ...
         new Tms\Bundle\LoggerBundle\TmsLoggerBundle(),
+        new FOS\RestBundle\FOSRestBundle(),
+        new JMS\SerializerBundle\JMSSerializerBundle(),
     );
 }
 ```
