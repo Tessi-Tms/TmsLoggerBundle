@@ -5,7 +5,7 @@ parameters:
 services:
     tms_logger.logger_manager:
         class: %tms_logger.logger_manager.class%
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine]
 
     tms_logger.twig.logger_extension:
         class: Tms\Bundle\LoggerBundle\Twig\LoggerExtension

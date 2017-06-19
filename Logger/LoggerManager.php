@@ -8,34 +8,35 @@
 namespace Tms\Bundle\LoggerBundle\Logger;
 
 use Tms\Bundle\LoggerBundle\Entity\Log;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManager;
 
 /**
  * LoggerManager
  */
 class LoggerManager implements LoggerInterface
 {
-    protected $entityManager;
+    protected $managerRegistry;
 
     /**
-     * Constructor
-     * 
-     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @param ManagerRegistry $managerRegistry
      */
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->entityManager = $entityManager;
+        $this->managerRegistry = $managerRegistry;
     }
 
     /**
-     * @return \Doctrine\ORM\EntityManager
+     * @return EntityManager
      */
     public function getEntityManager()
     {
-        return $this->entityManager;
+        return $this->managerRegistry->getManagerForClass('Tms\Bundle\LoggerBundle\Entity\Log');
     }
 
     /**
-     * @return \Doctrine\ORM\EntityRepository
+     * @return EntityRepository
      */
     public function getRepository()
     {
