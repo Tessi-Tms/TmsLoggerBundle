@@ -13,10 +13,10 @@ class LoggerEventSubscriber implements EventSubscriberInterface
     protected $logger;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param LoggerInterface $logger
-     * @param EntityManager $em
+     * @param EntityManager   $em
      */
     public function __construct(LoggerInterface $logger)
     {
@@ -42,12 +42,12 @@ class LoggerEventSubscriber implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    static public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(
             LogEvents::POST_CREATE => array('onCreatePost', 0),
-            LogEvents::PRE_UPDATE  => array('onUpdatePre', 0),
-            LogEvents::PRE_DELETE  => array('onDeletePre', 0),
+            LogEvents::PRE_UPDATE => array('onUpdatePre', 0),
+            LogEvents::PRE_DELETE => array('onDeletePre', 0),
         );
     }
 

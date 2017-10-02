@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
 
 /**
- * LoggerManager
+ * LoggerManager.
  */
 class LoggerManager implements LoggerInterface
 {
@@ -44,9 +44,10 @@ class LoggerManager implements LoggerInterface
     }
 
     /**
-     * Get Object class name
+     * Get Object class name.
      *
      * @param LoggableInterface $loggable
+     *
      * @return string
      */
     public function getObjectClassName(LoggableInterface $loggable)
@@ -57,9 +58,10 @@ class LoggerManager implements LoggerInterface
     }
 
     /**
-     * Get entity change set
+     * Get entity change set.
      *
      * @param $entity
+     *
      * @return array
      */
     public function getEntityChangeSet($entity)

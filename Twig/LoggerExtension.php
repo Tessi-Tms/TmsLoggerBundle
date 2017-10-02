@@ -10,7 +10,7 @@ class LoggerExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'tms_logger_hash' => new \Twig_Function_Method($this, 'getHash'),
+            new \Twig_SimpleFunction('tms_logger_hash', array($this, 'getHash')),
         );
     }
 

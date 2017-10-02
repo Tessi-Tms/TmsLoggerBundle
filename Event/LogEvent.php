@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\Event;
 use Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
 
 /**
- * LogEvent
+ * LogEvent.
  *
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */
@@ -15,8 +15,8 @@ class LogEvent extends Event
     protected $loggableObject;
 
     /**
-     * Contructor
-     * 
+     * Contructor.
+     *
      * @param LoggableInterface $loggableObject
      */
     public function __construct(LoggableInterface $loggableObject)

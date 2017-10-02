@@ -20,7 +20,7 @@ use Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
 class Log
 {
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -29,42 +29,42 @@ class Log
     private $id;
 
     /**
-     * @var datetime $createdAt
+     * @var datetime
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var string $hash
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
      */
     private $hash;
 
     /**
-     * @var string $objectClassName
+     * @var string
      *
      * @ORM\Column(name="object_class_name", type="string", length=128)
      */
     private $objectClassName;
 
     /**
-     * @var string $objectId
+     * @var string
      *
      * @ORM\Column(name="object_id", type="string", length=64)
      */
     private $objectId;
 
     /**
-     * @var string $action
+     * @var string
      *
      * @ORM\Column(type="string", length=64)
      */
     private $action;
 
     /**
-     * @var string $information
+     * @var string
      *
      * @ORM\Column(type="text", nullable=true)
      */
@@ -82,11 +82,11 @@ class Log
             ->setInformation($information)
         ;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -94,22 +94,23 @@ class Log
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Log
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -117,22 +118,23 @@ class Log
     }
 
     /**
-     * Set hash
+     * Set hash.
      *
      * @param string $hash
+     *
      * @return Log
      */
     public function setHash($hash)
     {
         $this->hash = $hash;
-    
+
         return $this;
     }
 
     /**
-     * Get hash
+     * Get hash.
      *
-     * @return string 
+     * @return string
      */
     public function getHash()
     {
@@ -140,22 +142,23 @@ class Log
     }
 
     /**
-     * Set objectClassName
+     * Set objectClassName.
      *
      * @param string $objectClassName
+     *
      * @return Log
      */
     public function setObjectClassName($objectClassName)
     {
         $this->objectClassName = $objectClassName;
-    
+
         return $this;
     }
 
     /**
-     * Get objectClassName
+     * Get objectClassName.
      *
-     * @return string 
+     * @return string
      */
     public function getObjectClassName()
     {
@@ -163,22 +166,23 @@ class Log
     }
 
     /**
-     * Set objectId
+     * Set objectId.
      *
      * @param string $objectId
+     *
      * @return Log
      */
     public function setObjectId($objectId)
     {
         $this->objectId = $objectId;
-    
+
         return $this;
     }
 
     /**
-     * Get objectId
+     * Get objectId.
      *
-     * @return string 
+     * @return string
      */
     public function getObjectId()
     {
@@ -186,22 +190,23 @@ class Log
     }
 
     /**
-     * Set action
+     * Set action.
      *
      * @param string $action
+     *
      * @return Log
      */
     public function setAction($action)
     {
         $this->action = $action;
-    
+
         return $this;
     }
 
     /**
-     * Get action
+     * Get action.
      *
-     * @return string 
+     * @return string
      */
     public function getAction()
     {
@@ -209,22 +214,23 @@ class Log
     }
 
     /**
-     * Set information
+     * Set information.
      *
      * @param string $information
+     *
      * @return Log
      */
     public function setInformation($information)
     {
         $this->information = $information;
-    
+
         return $this;
     }
 
     /**
-     * Get information
+     * Get information.
      *
-     * @return string 
+     * @return string
      */
     public function getInformation()
     {
@@ -232,15 +238,16 @@ class Log
     }
 
     /**
-     * Generate hash
-     * 
+     * Generate hash.
+     *
      * @param LoggableInterface $object
+     *
      * @return string
      */
     public static function generateHash(LoggableInterface $object)
     {
         $reflection = new \ReflectionClass($object);
-        $hash = md5(sprintf("%s-%s",
+        $hash = md5(sprintf('%s-%s',
                 $reflection->getName(),
                 $object->getId()
         ));

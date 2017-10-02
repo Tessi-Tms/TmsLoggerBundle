@@ -9,16 +9,16 @@ namespace Tms\Bundle\LoggerBundle\Logger;
 interface LoggerInterface
 {
     /**
-     * Log
+     * Log.
      *
      * @param LoggableInterface $object
-     * @param string $action
-     * @param string $information
+     * @param string            $action
+     * @param string            $information
      */
     public function log(LoggableInterface $object, $action, $information = null);
 
     /**
-     * Get Logs
+     * Get Logs.
      *
      * @param string $hashOrLogi
      */

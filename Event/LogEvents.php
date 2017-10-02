@@ -3,7 +3,7 @@
 namespace Tms\Bundle\LoggerBundle\Event;
 
 /**
- * LogEvents
+ * LogEvents.
  *
  * @author Gabriel Bondaz <gabriel.bondaz@idci-consulting.fr>
  */

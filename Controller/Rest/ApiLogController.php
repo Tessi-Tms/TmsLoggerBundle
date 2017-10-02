@@ -11,7 +11,7 @@ class ApiLogController extends FOSRestController
 {
     /**
      * [GET] /logs
-     * Retrieve all logs
+     * Retrieve all logs.
      *
      * @param Request $request
      */
@@ -27,10 +27,10 @@ class ApiLogController extends FOSRestController
 
     /**
      * [GET] /logs/{hash}/hash.{format}
-     * Retrieve all logs associated to a hash
+     * Retrieve all logs associated to a hash.
      *
      * @param Request $request
-     * @param string $hash
+     * @param string  $hash
      */
     public function getLogsHashAction(Request $request, $hash)
     {

@@ -9,21 +9,21 @@ namespace Tms\Bundle\LoggerBundle\Logger;
 interface LoggableInterface
 {
     /**
-     * Get id
+     * Get id.
      *
      * @return int|string Something which identify in an unique way an object
      */
     public function getId();
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
     public function getCreatedAt();
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
