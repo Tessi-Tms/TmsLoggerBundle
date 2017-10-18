@@ -1,5 +1,6 @@
-<a href="{{ path('api_log_get_logs_hash', { 'hash': tms_logger_hash(entity) }) }}" class="btn btn-default tms_logger_ajax_history_link">
-   {{ link|trans }}
+<a href="{{ path('api_log_get_logs_hash', { 'hash': tms_logger_hash(entity) }) }}" class="btn tms_logger_ajax_history_link">
+    <i></i>
+    <span>{{ link|trans }}</span>
 </a>
 
 <script type="text/javascript" src="{{ asset('bundles/tmslogger/js/jsdiff.js') }}"></script>
