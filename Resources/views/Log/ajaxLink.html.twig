@@ -14,11 +14,13 @@ $(document).ready(function() {
         })
         .done(function(data) {
             $out = $('\
-                <div id="tms_logger_history_modal" tabindex="-1" class="modal fade">\
+                <div id="tms_logger_history_modal" class="modal fade">\
                     <div class="modal-dialog">\
                         <div class="modal-content">\
                             <div class="modal-header">\
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>\
+                                <button type="button" class="btn close" data-dismiss="modal" aria-hidden="true">\
+                                    <i class="icofont icofont-close"></i>\
+                                </button>\
                                 <h3>{% trans %}History{% endtrans %}</h3>\
                             </div>\
                             <div class="modal-body">\
@@ -34,8 +36,8 @@ $(document).ready(function() {
                                     <tbody></tbody>\
                                 </table>\
                             </div>\
-                        <div>\
-                    <div>\
+                        </div>\
+                    </div>\
                 </div>\
             ');
 
