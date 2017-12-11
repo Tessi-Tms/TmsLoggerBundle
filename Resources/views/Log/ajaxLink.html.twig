@@ -24,7 +24,7 @@ $(document).ready(function() {
                                 <h3>{% trans %}History{% endtrans %}</h3>\
                             </div>\
                             <div class="modal-body">\
-                                <table class="table table-condensed table-bordered">\
+                                <table class="table table-hover">\
                                     <thead>\
                                         <tr>\
                                             <th>{% trans %}Created at{% endtrans %}</th>\
@@ -43,23 +43,24 @@ $(document).ready(function() {
 
             var $tbody = $out.find('tbody');
             $.each(data, function(k, v) {
+                var value = v;
                 var $row = $('\
                     <tr>\
-                        <td>'+v.createdAt+'</td>\
-                        <td>'+v.action+'</td>\
+                        <td>'+value.createdAt+'</td>\
+                        <td>'+value.action+'</td>\
                         <td class="information"></td>\
                         <td></td>\
                     </tr>\
                 ');
 
-                if (v.information) {
-                    var length = Object.keys(jQuery.parseJSON(v.information)).length;
+                if (value.information) {
+                    var length = Object.keys(jQuery.parseJSON(value.information)).length;
                     var index = 0;
                     var $summary = $('<div class="summary"></div>');
-                    $.each(jQuery.parseJSON(v.information), function(i, item) {
+                    $.each(jQuery.parseJSON(value.information), function(i, item) {
                         index++;
                         var comma = (index == length) ? '' : ',';
-                        $summary.append('<span>'+i+comma+' <span>');
+                        $summary.append('<span>'+i+comma+'</span>');
                     });
                     $show = $('\
                         <a href="#">\
@@ -71,31 +72,12 @@ $(document).ready(function() {
                     var $information = $('\
                         <div style="overflow-wrap: break-word; word-wrap: break-word;" class="fields">\
                             <p>\
-                                <span><i class="fa fa-cog"></i> '+v.action+'</span><br/>\
-                                <span><i class="fa fa-clock-o"></i> '+v.createdAt+'</span>\
+                                <span><i class="fa fa-cog"></i> '+value.action+'</span><br/>\
+                                <span><i class="fa fa-clock-o"></i> '+value.createdAt+'</span>\
                             </p>\
                             <h4>{% trans %}Fields diff{% endtrans %}</h4>\
                         </div>\
                     ');
-                    $.each(jQuery.parseJSON(v.information), function(i, item) {
-                        var before = item[0] == null ? '' :
-                            typeof item[0] == 'string' ?
-                                item[0] :
-                                item[0].toSource()
-                        ;
-
-                        var after = item[1] == null ? '' :
-                            typeof item[1] == 'string' ?
-                                item[1] :
-                                item[1].toSource()
-                        ;
-
-                        var diff = diffString(before, after);
-
-                        $information.append('\
-                            <div><strong>'+i+"</strong> : "+diff+'</div>\
-                        ');
-                    });
 
                     $information.css('display', 'none');
                     $row.find('.information').append($summary);
@@ -105,9 +87,23 @@ $(document).ready(function() {
                         e.preventDefault();
                         var $backButton = $('<button style="margin-bottom: 10px;" class="btn btn-default">{% trans %}Back to the list{% endtrans %}</button>');
                         var $info = $(this).closest('tr').find('td.information div.fields').clone();
-                        console.log($info);
                         $info.css('display', 'block');
                         $info.prepend($backButton);
+
+                        $.each(jQuery.parseJSON(value.information), function(i, item) {
+                            var before = item[0] == null ? '' :
+                                typeof item[0] == 'string' ? item[0] : JSON.stringify(item[0])
+                            ;
+
+                            var after = item[1] == null ? '' :
+                                typeof item[1] == 'string' ? item[1] : JSON.stringify(item[1])
+                            ;
+
+                            var diff = diffString(before, after);
+
+                            $info.append('<div><strong>'+i+'</strong> :'+diff+'</div>');
+                        });
+
                         $('.modal .modal-body > table').css('display', 'none');
                         $('.modal .modal-body').append($info);
 
@@ -128,7 +124,6 @@ $(document).ready(function() {
         })
         .fail(function(jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
-            console.log( "Request Failed: " + err );
         });
     });
 });
