@@ -1,11 +1,19 @@
 parameters:
     tms_logger.logger_manager.class: Tms\Bundle\LoggerBundle\Logger\LoggerManager
+    tms_logger.odm.logger_manager.class: Tms\Bundle\LoggerBundle\Logger\ODM\LoggerManager
     tms_logger.event.subscriber.logger.class: Tms\Bundle\LoggerBundle\Event\Subscriber\LoggerEventSubscriber
+    tms_logger.event.subscriber.odm.logger.class: Tms\Bundle\LoggerBundle\Event\Subscriber\ODM\LoggerEventSubscriber
 
 services:
     tms_logger.logger_manager:
         class: '%tms_logger.logger_manager.class%'
-        arguments: ["@doctrine"]
+        arguments:
+            - @doctrine
+
+    tms_logger.odm.logger_manager:
+        class: '%tms_logger.odm.logger_manager.class%'
+        arguments:
+            - @doctrine_mongodb
 
     tms_logger.twig.logger_extension:
         class: Tms\Bundle\LoggerBundle\Twig\LoggerExtension
@@ -14,4 +22,10 @@ services:
 
     tms_logger.event.subscriber.logger:
         class: '%tms_logger.event.subscriber.logger.class%'
-        arguments: ["@tms_logger.logger_manager"]
+        arguments:
+            - @tms_logger.logger_manager
+
+    tms_logger.event.subscriber.odm.logger:
+        class: '%tms_logger.event.subscriber.odm.logger.class%'
+        arguments:
+            - @tms_logger.odm_logger_manager

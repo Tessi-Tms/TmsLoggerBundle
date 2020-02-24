@@ -1,76 +1,101 @@
 <?php
 
 /**
- * @author Nathalie De Sousa <nathalie.de.sousa@tessi.fr>
+ * @author Nabil Mansouri <nabil.mansouri@tessi.fr>
  */
 
 namespace Tms\Bundle\LoggerBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Tms\Bundle\LoggerBundle\Logger\LoggableInterface;
 
 /**
- * @ORM\Entity(repositoryClass="Tms\Bundle\LoggerBundle\Entity\Repository\LogRepository")
- * @ORM\Table(name="log", indexes={
- *     @ORM\Index(name="log_hash", columns={"hash"}),
- *     @ORM\Index(name="log_object", columns={"object_class_name", "object_id"}),
- *     @ORM\Index(name="log_action", columns={"action"})
+ * @ODM\Document(collection="logs")
+ * @ODM\HasLifecycleCallbacks
+ * @ODM\Indexes({
+ *   @ODM\Index(keys={"object_id"="asc"}, name="object_id"),
+ *   @ODM\Index(keys={"user"="asc"}, name="users"),
+ *   @ODM\Index(keys={"action"="desc"}, name="actions"),
+ *   @ODM\Index(keys={"source"="asc"}, name="sources"),
+ *   @ODM\Index(keys={"hash"="asc"}, name="hashs", unique=true)
  * })
  */
 class Log
 {
-    /**
-     * @var int
+	/**
+     * The log id.
      *
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var \MongoId
+     *
+     * @ODM\Id
      */
     private $id;
 
     /**
      * @var datetime
      *
-     * @ORM\Column(name="created_at", type="datetime")
+     * @ODM\Field(type="date")
      */
     private $createdAt;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
-     */
+     * @ODM\Field(type="string", length=255)
+	 */
     private $hash;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="object_class_name", type="string", length=128)
+     * @ODM\Field(type="string", length=128)
      */
     private $objectClassName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="object_id", type="string", length=64)
+     * @ODM\Field(name="object_id", type="string", length=64)
      */
     private $objectId;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=64)
+     * @ODM\Field(type="string", length=64)
      */
     private $action;
+
+	/**
+     * @var string
+     *
+     * @ODM\Field(type="string")
+     */
+    private $user;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="text", nullable=true)
+     * @ODM\Field(type="string")
+     */
+    private $source;
+
+    /**
+     * @var string
+     *
+     * @ODM\Field(type="string")
+     */
+    private $comment;
+
+    /**
+     * @var string
+     *
+     * @ODM\Field(type="text", nullable=true)
      */
     private $information;
 
-    public function __construct(LoggableInterface $object, $action, $information = null)
+    public function __construct(LoggableInterface $object, $action, $information = null, $comment = null)
     {
         $reflection = new \ReflectionClass($object);
         $this
@@ -79,6 +104,7 @@ class Log
             ->setObjectClassName($reflection->getName())
             ->setObjectId($object->getId())
             ->setAction($action)
+            ->setComment($comment)
             ->setInformation($information)
         ;
     }
@@ -211,6 +237,78 @@ class Log
     public function getAction()
     {
         return $this->action;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param string $user
+     *
+     * @return Log
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     *
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set source.
+     *
+     * @param string $source
+     *
+     * @return Log
+     */
+    public function setSource($source)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * Get source.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * Set comment.
+     *
+     * @param string $comment
+     *
+     * @return Log
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment.
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 
     /**

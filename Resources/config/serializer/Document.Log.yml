@@ -1,0 +1,46 @@
+Tms\Bundle\LoggerBundle\Document\Log:
+    exclusion_policy: ALL
+
+    properties:
+        id:
+            expose: true
+            groups: [list, details]
+
+        createdAt:
+            expose: true
+            groups: [list, details]
+            serialized_name: createdAt
+
+        hash:
+            expose: true
+            groups: [list, details]
+
+        objectClassName:
+            expose: true
+            groups: [list, details]
+            serialized_name: objectClassName
+
+        objectId:
+            expose: true
+            groups: [list, details]
+            serialized_name: objectId
+
+        action:
+            expose: true
+            groups: [list, details]
+
+        user:
+            expose: true
+            groups: [list, details]
+
+        source:
+            expose: true
+            groups: [list, details]
+
+        comment:
+            expose: true
+            groups: [list, details]
+
+        information:
+            expose: true
+            groups: [details]
