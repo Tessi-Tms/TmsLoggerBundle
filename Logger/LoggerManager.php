@@ -3,11 +3,14 @@
 /**
  * @author Nathalie De Sousa <nathalie.de.sousa@tessi.fr>
  * @author Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @author Nabil Mansouri <nabil.mansouri@tessi.fr>
  */
 
 namespace Tms\Bundle\LoggerBundle\Logger;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Tms\Bundle\LoggerBundle\Entity\Log;
+use Tms\Bundle\SecurityBundle\Security\User\TmsOAuthUser;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManager;
@@ -20,11 +23,18 @@ class LoggerManager implements LoggerInterface
     protected $managerRegistry;
 
     /**
-     * @param ManagerRegistry $managerRegistry
+     * @var TokenStorageInterface
      */
-    public function __construct(ManagerRegistry $managerRegistry)
+    protected $tokenStorage;
+
+    /**
+     * @param ManagerRegistry       $managerRegistry Instance of ManagerRegistry
+     * @param TokenStorageInterface $tokenStorage    Instance of TokenStorageInterface
+     */
+    public function __construct(ManagerRegistry $managerRegistry, TokenStorageInterface $tokenStorage)
     {
         $this->managerRegistry = $managerRegistry;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -54,7 +64,7 @@ class LoggerManager implements LoggerInterface
     {
         $reflection = new \ReflectionClass($loggable);
 
-        return $reflection->getClassName();
+        return $reflection->getName();
     }
 
     /**
@@ -79,6 +89,8 @@ class LoggerManager implements LoggerInterface
     public function log(LoggableInterface $loggable, $action, $information = null)
     {
         $log = new Log($loggable, $action, $information);
+        $log->setUser($this->getCurrentUser());
+
         $this->getEntityManager()->persist($log);
         $this->getEntityManager()->flush();
     }
@@ -100,5 +112,19 @@ class LoggerManager implements LoggerInterface
         }
 
         return $this->getRepository()->findBy(array('hash' => $hashOrLogi));
+    }
+
+    /**
+     * @return string|null
+     */
+    private function getCurrentUser()
+    {
+        $token = $this->tokenStorage->getToken();
+        if (null !== $token && $token->getUser() instanceof TmsOAuthUser) {
+            $user = $token->getUser();
+            return $user->getDisplayName();
+        }
+
+        return null;
     }
 }
