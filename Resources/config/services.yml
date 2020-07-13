@@ -5,13 +5,18 @@ parameters:
 services:
     tms_logger.logger_manager:
         class: '%tms_logger.logger_manager.class%'
-        arguments: ["@doctrine"]
+        arguments:
+            - "@doctrine"
+            - "@security.token_storage"
 
     tms_logger.twig.logger_extension:
         class: Tms\Bundle\LoggerBundle\Twig\LoggerExtension
         tags:
             - { name: twig.extension }
+        arguments:
+            - "@tms_logger.logger_manager"
 
     tms_logger.event.subscriber.logger:
         class: '%tms_logger.event.subscriber.logger.class%'
-        arguments: ["@tms_logger.logger_manager"]
+        arguments:
+            - "@tms_logger.logger_manager"
