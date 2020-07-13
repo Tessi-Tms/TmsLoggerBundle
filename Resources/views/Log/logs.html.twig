@@ -1,0 +1,37 @@
+{% set logs = tms_logger_logs(entity) %}
+
+<h1>{% trans %}Logs{% endtrans %}</h1>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>{% trans %}Id{% endtrans %}</th>
+            <th>{% trans %}Action{% endtrans %}</th>
+            <th>{% trans %}User{% endtrans %}</th>
+            <th>{% trans %}Information{% endtrans %}</th>
+            <th>{% trans %}Created at{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for log in logs %}
+		{% set information = jsonDecode(log.information) %}
+        <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.user }}</td>
+            <td>
+				{% for key, values in information %}
+					<table class="table table-condensed table-bordered">
+						<tr>
+							<td><h6>{{ key }} :</h6>
+								<tr><td>{% trans %}old{% endtrans %}</td> <td>{{ values[0] }}</td></tr>
+								<tr><td>{% trans %}new{% endtrans %}</td><td>{{ values[1] }}</td></tr>
+							</td>
+						</tr>
+					</table>
+				{% endfor %}
+			</td>
+			<td>{{ log.createdAt|localizeddate('short', 'short') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
